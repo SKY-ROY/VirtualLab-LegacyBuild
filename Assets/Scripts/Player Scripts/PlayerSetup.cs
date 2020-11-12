@@ -11,6 +11,7 @@ public class PlayerSetup : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     {
+        /*
         //Conditionally activating movement controls for only local player and not remote player spawwned through network
         if(photonView.IsMine)
         {
@@ -24,6 +25,7 @@ public class PlayerSetup : MonoBehaviourPun
             transform.GetComponent<MovementController>().enabled = false;
             transform.GetComponent<MovementController>().joystick.gameObject.SetActive(false);
         }
+        */
         SetPlayerName();
     }
 

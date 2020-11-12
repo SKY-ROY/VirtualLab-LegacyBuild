@@ -9,7 +9,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
 {
     public GameObject[] playerPrefabs;
     public Transform[] spawnPositions;
-    public GameObject battleArenaGameobject;
+    public GameObject roomOriginGameobject;
 
     public enum RaiseEventCodes
     {
@@ -45,7 +45,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
             Quaternion receivedRotation = (Quaternion)data[1];
             int receivedPlayerSelectionData = (int)data[3];
 
-            GameObject player = Instantiate(playerPrefabs[receivedPlayerSelectionData], receivedPosition + battleArenaGameobject.transform.position, receivedRotation);
+            GameObject player = Instantiate(playerPrefabs[receivedPlayerSelectionData], receivedPosition + roomOriginGameobject.transform.position, receivedRotation);
             PhotonView _photonView = player.GetComponent<PhotonView>();
             _photonView.ViewID = (int)data[2];
         }
@@ -64,7 +64,8 @@ public class SpawnManager : MonoBehaviourPunCallbacks
                 int randomSpawnPoint = Random.Range(0, spawnPositions.Length - 1);
                 Vector3 instantiatePosition = spawnPositions[randomSpawnPoint].position;
 
-                PhotonNetwork.Instantiate(playerPrefabs[(int)playerSelectionNumber].name, instantiatePosition, Quaternion.identity);
+                PhotonNetwork.Instantiate(playerPrefabs[(int)playerSelectionNumber].name, Vector3.zero, Quaternion.identity);
+                //PhotonNetwork.Instantiate(playerPrefabs[(int)playerSelectionNumber].name, instantiatePosition, Quaternion.identity);
             }
             */
             SpawnPlayer();
@@ -96,7 +97,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
             {
                 object[] data = new object[]
                 {
-                    playerGameObject.transform.position - battleArenaGameobject.transform.position, 
+                    playerGameObject.transform.position - roomOriginGameobject.transform.position, 
                     playerGameObject.transform.rotation, 
                     _photonView.ViewID, 
                     playerSelectionNumber

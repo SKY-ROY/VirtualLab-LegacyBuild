@@ -15,12 +15,15 @@ public class MySynchronization : MonoBehaviour, IPunObservable
     private Vector3 networkedPosition;
     private Quaternion networkedRotation;
     private GameObject battleArenaGameobject;
+    private GameObject cam;
 
     private float distance;
     private float angle;
 
     void Awake()
     {
+        cam = GameObject.FindGameObjectWithTag("MainCamera");
+        
         rb = GetComponent<Rigidbody>();
         photonView = GetComponent<PhotonView>();
 
@@ -39,7 +42,11 @@ public class MySynchronization : MonoBehaviour, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        
+        if (photonView.IsMine)
+        {
+            //gameObject.transform.SetParent(camera.transform);
+            gameObject.transform.position = cam.transform.position;
+        }
     }
 
     void FixedUpdate()
