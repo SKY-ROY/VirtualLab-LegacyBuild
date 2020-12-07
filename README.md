@@ -1,2 +1,2 @@
-# SpinTop
+# VirtualLab
  AR Multiplayer game.
