@@ -7,6 +7,7 @@ using TMPro;
 public class PlayerSetup : MonoBehaviourPun
 {
     public TextMeshProUGUI playerNameText;
+    public TextMeshProUGUI playerPositionText;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,11 @@ public class PlayerSetup : MonoBehaviourPun
         SetPlayerName();
     }
 
+    private void Update()
+    {
+        playerPositionText.text = gameObject.transform.position.ToString();
+    }
+
     void SetPlayerName()
     {
         if(playerNameText != null)
@@ -41,7 +47,6 @@ public class PlayerSetup : MonoBehaviourPun
             else
             {
                 playerNameText.text = photonView.Owner.NickName;
-
             }
         }
     }

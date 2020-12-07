@@ -11,8 +11,12 @@ public class STGameManager : MonoBehaviourPunCallbacks
     public GameObject UI_InformPanel_Gameobject;
     public GameObject searchForGamesButtonGameObject;
     public TextMeshProUGUI UI_Inform_Text;
+    public TextMeshProUGUI UI_Debug_Text;
     public GameObject adjust_Button;
     public GameObject raycastCenter_Image;
+
+    [Header("Gameobject Reference")]
+    public GameObject cam;
 
     #region UNITY Methods
     // Start is called before the first frame update
@@ -25,7 +29,7 @@ public class STGameManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        
+        UI_Debug_Text.text = "Position: " + cam.transform.position.ToString();
     }
     #endregion
 
@@ -73,24 +77,24 @@ public class STGameManager : MonoBehaviourPunCallbacks
 
         if(PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
-            UI_Inform_Text.text = "Joined to " + PhotonNetwork.CurrentRoom.Name + ". Waiting for other players...";
+            UI_Inform_Text.text = "Joined to " + PhotonNetwork.CurrentRoom.Name + ". Waiting for other users...";
         }
         else
         {
             UI_Inform_Text.text = "Joined to " + PhotonNetwork.CurrentRoom.Name;
-            StartCoroutine(DeavtivateAfterSeconds(UI_InformPanel_Gameobject, 2f));
+            StartCoroutine(DeactivateAfterSeconds(UI_InformPanel_Gameobject, 2f));
         }
         Debug.Log(PhotonNetwork.NickName + " joined to " + PhotonNetwork.CurrentRoom.Name);
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        string displayMessage = newPlayer.NickName + " joined to " + PhotonNetwork.CurrentRoom.Name + " (Player count: " + PhotonNetwork.CurrentRoom.PlayerCount + ")";
+        string displayMessage = newPlayer.NickName + " joined to " + PhotonNetwork.CurrentRoom.Name + " (User count: " + PhotonNetwork.CurrentRoom.PlayerCount + ")";
         
         Debug.Log(displayMessage);
         UI_Inform_Text.text = displayMessage;
 
-        StartCoroutine(DeavtivateAfterSeconds(UI_InformPanel_Gameobject, 2f));
+        StartCoroutine(DeactivateAfterSeconds(UI_InformPanel_Gameobject, 2f));
     }
 
     public override void OnLeftRoom()
@@ -113,7 +117,7 @@ public class STGameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom(randomRoomName, roomOptions);
     }
 
-    IEnumerator DeavtivateAfterSeconds(GameObject _gameObject, float _seconds)
+    IEnumerator DeactivateAfterSeconds(GameObject _gameObject, float _seconds)
     {
         yield return new WaitForSeconds(_seconds);
         _gameObject.SetActive(false);

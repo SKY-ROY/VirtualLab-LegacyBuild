@@ -15,6 +15,8 @@ public class ARPlaneDetectionController : MonoBehaviour
     public GameObject searchForGameButton;
     public GameObject scaleSlider;
 
+    public bool keepScaleSlider = true;
+
     private void Awake()
     {
         m_ARPlacementManager = GetComponent<ARPlacementManager>();
@@ -25,12 +27,12 @@ public class ARPlaneDetectionController : MonoBehaviour
     private void Start()
     {
         placeButton.SetActive(true);
-        scaleSlider.SetActive(true);
+        scaleSlider.SetActive(keepScaleSlider);
         
         adjustButton.SetActive(false);
         searchForGameButton.SetActive(false);
     
-        informUIPanel_Text.text = "Move the phone around to detect plane and place the Battle Arena.";
+        informUIPanel_Text.text = "Move the phone around to detect plane and place the Virtual-Object(s).";
     }
 
     // Update is called once per frame
@@ -60,7 +62,7 @@ public class ARPlaneDetectionController : MonoBehaviour
 
         scaleSlider.SetActive(false);
 
-        informUIPanel_Text.text = "Battle Arena placed, now search for games to BATTLE.";
+        informUIPanel_Text.text = "Virtual-Object(s) placed, now search for 'Active Sessions' to join.";
     }
 
     public void EnableARPlacementAndPlaneDetection()
@@ -74,8 +76,8 @@ public class ARPlaneDetectionController : MonoBehaviour
         adjustButton.SetActive(false);
         searchForGameButton.SetActive(false);
 
-        scaleSlider.SetActive(true);
+        scaleSlider.SetActive(keepScaleSlider);
 
-        informUIPanel_Text.text = "Move the phone around to detect plane and place the Battle Arena.";
+        informUIPanel_Text.text = "Move the phone around to detect plane and place the Virtual-Object(s).";
     }
 }

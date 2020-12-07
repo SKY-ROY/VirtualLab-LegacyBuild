@@ -2044,7 +2044,7 @@ MonoBehaviour:
   - {fileID: 931434789}
   - {fileID: 2043065518}
   - {fileID: 1650174349}
-  battleArenaGameobject: {fileID: 760013867502548235}
+  roomOriginGameobject: {fileID: 0}
 --- !u!1 &1314987283
 GameObject:
   m_ObjectHideFlags: 0
